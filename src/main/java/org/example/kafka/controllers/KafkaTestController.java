@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class KafkaTestController {
 
     @Autowired
-    private KafkaTemplate<Long, String> kafkaTemplate;
+    private KafkaTemplate<Long, UserDto> kafkaTemplate;
 
     @PostMapping
-    public void sendOrder(Long msgId, String msg) {
+    public void sendOrder(Long msgId, UserDto msg) {
 
-        ListenableFuture<SendResult<Long, String>> future = kafkaTemplate.send("msg", msgId, msg);
+        ListenableFuture<SendResult<Long, UserDto>> future = kafkaTemplate.send("msg", msgId, msg);
         future.addCallback(System.out::println, System.err::println);
         kafkaTemplate.flush();
     }

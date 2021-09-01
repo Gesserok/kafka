@@ -32,17 +32,17 @@ public class KafkaConfiguration {
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 LongSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                StringSerializer.class);
+                JsonSerializer.class);
         return props;
     }
 
     @Bean
-    public ProducerFactory<Long, String> producerFactory() {
+    public ProducerFactory<Long, UserDto> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<Long, String> kafkaTemplate() {
+    public KafkaTemplate<Long, UserDto> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
